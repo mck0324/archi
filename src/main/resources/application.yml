@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: archisketch-backend-test
-  datasource:
-    url: jdbc:mysql://backend-test.ctvcd5flkzua.ap-northeast-2.rds.amazonaws.com/test5
-    username: test05
-    password: test05-t23z
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
