@@ -1,8 +1,10 @@
 package com.example.archisketchbackendtest.service
 
+import com.example.archisketchbackendtest.controller.ReqCreateData
 import com.example.archisketchbackendtest.dto.CylinderResponse
 import com.example.archisketchbackendtest.dto.EditorAsset
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Mono
@@ -32,6 +34,9 @@ class CylinderService(
                     }
                 )
             }
-
     }
+
+//    fun create(@RequestBody request: ReqCreateData): ReqCreateData {
+//
+//    }
 }
