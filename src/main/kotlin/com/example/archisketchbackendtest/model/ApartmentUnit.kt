@@ -29,7 +29,7 @@ class ApartmentUnit (
 
     val type: String? = null,
 
-    val extensionType: String? = null,
+    val extensionType: ExtensionType? = ExtensionType.BASIC,
 
     @ManyToOne
     @JoinColumn(name = "apartment_id")
@@ -40,4 +40,7 @@ class ApartmentUnit (
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null,
 
-)
+    )
+enum class ExtensionType {
+    BASIC, EXTENDED
+}
