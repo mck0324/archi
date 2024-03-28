@@ -1,9 +1,13 @@
 package com.example.archisketchbackendtest.service
 
 import com.example.archisketchbackendtest.controller.ReqCreateData
+import com.example.archisketchbackendtest.controller.ResCreateData
 import com.example.archisketchbackendtest.dto.CylinderResponse
 import com.example.archisketchbackendtest.dto.EditorAsset
+import com.example.archisketchbackendtest.model.User
+import com.example.archisketchbackendtest.repository.CylinderRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
@@ -11,7 +15,8 @@ import reactor.core.publisher.Mono
 
 @Service
 class CylinderService(
-    private val webClient: WebClient.Builder
+    private val webClient: WebClient.Builder,
+    private val cylinderRepository: CylinderRepository
 ) {
 
     fun fetchAndFilterData(): Mono<CylinderResponse> {
@@ -36,7 +41,16 @@ class CylinderService(
             }
     }
 
-//    fun create(@RequestBody request: ReqCreateData): ReqCreateData {
-//
-//    }
+    @Transactional
+    fun create(@RequestBody request: ReqCreateData): ResCreateData {
+        val saveData = cylinderRepository.save(User(
+            user = request.user,
+            password = request.password
+        ))
+        return ResCreateData(
+            user = request.user,
+            password = request.password,
+            message = "Success"
+        )
+    }
 }

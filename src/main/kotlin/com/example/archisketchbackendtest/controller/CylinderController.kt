@@ -23,13 +23,18 @@ class CylinderController(
     }
 
     @PostMapping("/info")
-    fun create(@RequestBody request: ReqCreateData): ReqCreateData {
+    fun create(@RequestBody request: ReqCreateData): ResCreateData {
         return cylinderService.create(request)
     }
 
 }
 
 data class ReqCreateData (
-    val user: String,
-    val password: String
+    val user: String?,
+    val password: String?
+)
+data class ResCreateData (
+    val user: String?,
+    val password: String?,
+    val message: String?
 )
