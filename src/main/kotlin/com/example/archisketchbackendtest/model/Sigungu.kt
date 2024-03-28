@@ -8,9 +8,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
-@Entity
-//@Table(name = "Sigungu")
-@Table(name="\"Sigungu\"", schema = "public" )
+@Entity(name = "\"Sigungu\"")
+//@Table(name="\"Sigungu\"", schema = "public" )
 class Sigungu (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

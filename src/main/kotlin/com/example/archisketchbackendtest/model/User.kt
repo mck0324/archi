@@ -8,7 +8,7 @@ import jakarta.persistence.Id
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
-@Entity(name = "TB_USER")
+@Entity(name = "tb_user")
 @EntityListeners(AuditingEntityListener::class)
 class User(
     @Id

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-@Entity
+@Entity(name = "tb_apartment_unit")
 @EntityListeners(AuditingEntityListener::class)
 class ApartmentUnit (
 
