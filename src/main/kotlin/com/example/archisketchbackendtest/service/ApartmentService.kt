@@ -7,6 +7,7 @@ import com.example.archisketchbackendtest.model.ExtensionType
 import com.example.archisketchbackendtest.repository.AddressRepository
 import com.example.archisketchbackendtest.repository.ApartmentRepository
 import com.example.archisketchbackendtest.repository.ApartmentUnitRepository
+import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.criteria.Subquery
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Service
 class ApartmentService(
-    private val addressRepository: AddressRepository,
-    private val apartmentRepository: ApartmentRepository,
     private val apartmentUnitRepository: ApartmentUnitRepository,
 ) {
 
@@ -28,10 +27,7 @@ class ApartmentService(
         @RequestParam(required = false) typePrefix: String?,
         @RequestParam(required = false) sortOrder: String?
     ): List<ApartmentUnit> {
-        println("name,$name")
-        println("roadAddress,$roadAddress")
-        println("lotNumberAddress,$lotNumberAddress")
-        println("extensionType,$extensionType")
+
         var specifications: Specification<ApartmentUnit> = Specification.where(null)
 
         if (!name.isNullOrEmpty()) {
@@ -43,7 +39,7 @@ class ApartmentService(
         }
 
         if (extensionType != null) {
-            specifications = specifications?.and(withExtensionType(extensionType)) ?: Specification.where(withExtensionType(extensionType))
+            specifications = specifications.and(withExtensionType(extensionType))
         }
         if (!typePrefix.isNullOrEmpty()) {
             specifications = specifications.and(withTypePrefix(typePrefix))
@@ -54,7 +50,11 @@ class ApartmentService(
             "desc" -> Sort.by("exclusiveArea").descending()
             else -> Sort.unsorted()
         }
-        return apartmentUnitRepository.findAll(specifications, sort)
+        val result = apartmentUnitRepository.findAll(specifications, sort)
+        if (result.isNullOrEmpty()) {
+            throw EntityNotFoundException("매칭된 아파트 정보를 찾을 수 없습니다")
+        }
+        return result
     }
 
     fun withName(name: String?): Specification<ApartmentUnit>? {

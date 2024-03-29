@@ -23,6 +23,9 @@ class ApartmentController(
         @RequestParam(required = false) typePrefix: String?,
         @RequestParam(required = false) sortOrder: String?
     ): List<ApartmentUnit> {
+        if (name.isNullOrBlank() && roadAddress.isNullOrBlank() && lotNumberAddress.isNullOrBlank()) {
+            throw IllegalArgumentException("적어도 한가지 이상의 파라미터를 제공해줘야합니다.")
+        }
 
         return apartmentService.findUnits(name, roadAddress, lotNumberAddress, extensionType, typePrefix, sortOrder)
     }
