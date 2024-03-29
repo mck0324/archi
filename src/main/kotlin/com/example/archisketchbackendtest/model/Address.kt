@@ -2,6 +2,7 @@ package com.example.archisketchbackendtest.model
 
 import jakarta.persistence.Entity
 import jakarta.persistence.EntityListeners
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -23,7 +24,7 @@ class Address (
 
     val lotNumberAddress: String? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id")
     val apartment: Apartment? = null,
 
